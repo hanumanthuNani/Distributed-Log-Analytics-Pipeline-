@@ -1,0 +1,16 @@
+Table: log_analytics:log_levels
+
+Row Key:
+  <window_start_epoch>_<level>
+  - Combines the aggregation window start time (epoch or YYYYMMDDHHMMSS) with the log level for fast range scans and level filters.
+
+Column Families:
+  meta:
+    - window_end: string representation of aggregation window end
+    - level: log level for clarity
+  metrics:
+    - total: count of events in the window
+
+Access Pattern:
+  - Get by row key for a specific level and time window.
+  - Range scans over a time interval by prefix (window_start).
